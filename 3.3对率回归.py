@@ -95,9 +95,14 @@ from mpl_toolkits.mplot3d import Axes3D
 fig = plt.figure()
 ax = Axes3D(fig)
 #绘制散点图
-tx = x.T
-ax.scatter(tx[0].T,tx[1].T, y.T,c = 'r')
+temp0 = np.where(y == 0)
+temp1 = np.where(y == 1)
 
+ax0 = x[temp0[0],:]
+ax1 = x[temp1[0],:]
+
+ax.scatter(ax0[:,0],ax0[:,1] ,y[temp0].T,c = 'r')
+ax.scatter(ax1[:,0],ax1[:,1], y[temp1].T,c = 'g',marker = 'x')
 #绘制曲面
 px1 = np.linspace(0.0, 1.0, num=50).reshape(50,1)
 px2 = np.linspace(0.0, 1.0, num=50).reshape(50,1)
@@ -108,3 +113,10 @@ ax.plot_surface(px1, px2,z,rstride=1, cstride=1, cmap=plt.cm.coolwarm)
 
 plt.show()
 
+#其实就是绘制b0 * x1 + b1 * x2 + b2 = 0的那条线
+#当x1 = 0时，x2 = -b2/b1
+#当x1 = 0.9时 x2 = (- b2 - 0.9 * b0) / b1
+plt.scatter(ax0[:,0],ax0[:,1] ,c = 'r')
+plt.scatter(ax1[:,0],ax1[:,1], c = 'g',marker = 'x')
+plt.plot([0,0.9],[-B[2]/B[1],(-B[2]-0.9*B[0])/B[1]])
+plt.show()

@@ -38,33 +38,15 @@ print(w)
 y = np.dot(x,w.T)
 #print(y)
 import matplotlib.pyplot as plt
+plt.scatter(ax0[:,0],ax0[:,1])
+plt.scatter(ax1[:,0],ax1[:,1],marker = 'x',c = 'r' )
+#直线不需要生成很多点
+#其实就是绘制 w0 * x1 + w1 * x2 = 0的那一条线
+#当x1 = 0时，x2 = 0
+#当x1 = 0.9 时 x2 = -w0 * 0.9 / w1
+ey = -0.9 * w[0] / w[1]
 
-plt.scatter(y0x1,y0x2)
-plt.scatter(y1x1,y1x2,marker = 'x',c = 'r' )
-px1 = np.linspace(0.0, 1.0, num=50).reshape(50,1)
-px2 = np.linspace(0.0, 1.0, num=50).reshape(50,1)
-px = np.concatenate((px1,px2),axis = 1)
-y = np.dot(px,w)
-plt.plot(px,y)
+plt.plot([0,0.9],[0,ey])
 plt.show()
 
 
-# =============================================================================
-# import matplotlib.pyplot as plt
-# from mpl_toolkits.mplot3d import Axes3D
-# fig = plt.figure()
-# ax = Axes3D(fig)
-# tx = x.T
-# ax.scatter(tx[0].T,tx[1].T, y.T,c = 'r')
-# px1 = np.linspace(0.0, 1.0, num=50).reshape(50,1)
-# px2 = np.linspace(0.0, 1.0, num=50).reshape(50,1)
-# px = np.concatenate((px1,px2),axis = 1)
-# print(np.shape(px))
-# z = np.dot(px,w.T).reshape(-1,1)
-# print(np.shape(z))
-# px1,px2=np.meshgrid(px1,px2)#必须有
-# ax.plot_surface(px1, px2,z,rstride=1, cstride=1, cmap=plt.cm.coolwarm)
-# plt.show()
-# 
-# 
-# =============================================================================
